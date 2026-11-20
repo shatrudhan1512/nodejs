@@ -1,0 +1,22 @@
+name: Deploy NodeJS APP
+on:
+  push:
+    branch:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy on Server
+        uses: appleboy/ssh-actions@1.0.3
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.USER_NAME}}
+          key: ${{secrets.SSH_KEY}}
+          script: |
+            cd /home/ubuntu/nodejs
+            git pull
+            docker compose up -d --build
