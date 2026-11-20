@@ -1,0 +1,10 @@
+services:
+  app:
+    container_name: node-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rest-api:v1
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
